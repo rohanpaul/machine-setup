@@ -1,0 +1,168 @@
+#Remember last 500 commands
+set history=500 savehist=500
+
+setenv PATH /usr/share/man:/usr/bin/:/usr/sbin:/bin:/usr/local/bin:/opt/local/bin:/Users/rohanpaul/code/development/MRG/bin/release:/usr/local/Cellar/:/user/local/Cellar/boost/1.58.0/include$PATH
+#setenv PATH /Library/Frameworks/Python.framework/Versions/2.6/bin/:$PATH
+
+#setenv LD_LIBRARY_PATH /usr/
+#setenv PYTHONPATH /usr/local/lib/python2.7/site-packages/:/Users/rohanp/code/development/symbolic-planning/metis/install/lib/python2.7/site-packages/
+
+setenv MTURK_CMD_HOME /Users/rohanp/Downloads/aws-mturk-clt-1.3.1/
+setenv JAVA_HOME /usr/
+
+#/Users/rohanp/code/development/symbolic-planning/new_widget/metis/install/lib/python2.7/site-packages
+
+setenv PYTHONPATH /Users/rohanp/code/development/symbolic-planning/new_widget/metis/install/lib/python2.7/site-packages/:/usr/local/lib/python2.7/site-packages/:Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload/:/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/:/System/Library/Frameworks/Python.framework/Versions/2.7/Extras/lib/python/py2app/recipes/pygame.py
+#setenv PYTHONPATH /Users/rohanp/code/development/symbolic-planning/metis/install/lib/python2.7/site-packages/:/usr/local/lib/python2.7/site-packages/:Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload/:/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/:/System/Library/Frameworks/Python.framework/Versions/2.7/Extras/lib/python/py2app/recipes/pygame.py
+setenv CVSEDITOR vi
+#setenv SVNPAPERSROOT
+#svn+ssh://rohanp@login2.robots.ox.ac.uk/data/avl11/svnroot/MRGPapers/trunk
+#setenv SVNMATLABROOT
+#svn+ssh://rohanp@login2.robots.ox.ac.uk/data/avl11/svnroot/MRGMatlab/trunk
+#setenv SVNROOT  svn+ssh://rohanp@login2.robots.ox.ac.uk/data/avl11/svnroot/
+#setenv SVNMOOS
+#svn+ssh://rohanp@login2.robots.ox.ac.uk/data/avl11/svnroot/MOOS/trunk
+
+# Terminal colours
+# setenv CLICOLOR 1
+# setenv TERM xterm-color
+# setenv LSCOLORS ExFxCxDxBxegedabagacad
+
+#Terminal colours
+setenv  CLICOLOR 1
+setenv LSCOLORS ExFxCxDxBxegedabagacad
+
+
+#Shell customization
+# For auto-completion and in colour.
+set autolist set color set colorcat
+
+# For auto-completion not in colour.
+# set autolist
+
+# Setting no beep
+set nobeep
+
+if ( (! $?ENVONLY) && $?prompt ) then
+        if ( -o /bin/su ) then
+                set prompt="`hostname -s` \!# "
+        else
+                set prompt="`hostname -s` \!% "
+        endif
+endif
+
+    set myprompt = "%m:%l %T [%B%c2%b] %?%# "
+    alias setprompt 'set prompt="$myprompt";\\
+                  if (x$cwd == x"/")set prompt="$myprompt";'
+    alias cd 'if ("\!:0-$" == cd) cd;\\
+                  if ("\!:0-$" != cd) cd \!$;\\
+                  setprompt'
+    alias pushd 'if ("\!:0-$" == pushd) pushd;\\
+                  if ("\!:0-$" != pushd) pushd \!$;\\
+                  setprompt'
+    alias popd 'if ("\!:0-$" == popd) popd;\\
+                  if ("\!:0-$" != popd) popd \!$;\\
+                  setprompt'
+    setprompt;
+
+set filec
+
+setenv EDITOR vim
+
+    complete cd 'n/*/d/'
+    complete emacs 'n/*/f:^*.{dvi,tex~,tex%,tar,o,aux,log,bbl,blg,elc}/'
+    complete vi    'n/*/f:^*.{dvi,tex~,tex%,tar,o,aux,log,bbl,blg}/'
+    complete more  'n/*/f:^*.{dvi,tar,o,elc}/'
+    complete latex 'n/*/f:*.{dtx,tex,ins}/'
+    complete tex   'n/*/f:*.tex/'
+    complete latex 'n/*/f:*.tex/'
+    complete xdvi  'n/*/f:*.dvi/'
+
+    set cdpath = (.. ~)
+
+    complete man        'n/*/c/'            # complete commands
+    complete which      'n/*/c/'
+    complete cd 'n/*/d/'            # only cd to dirs
+    complete alias      'p/1/a/'            # complete aliases
+    complete set        'p/1/s/'            # complete variables
+    complete finger     'p/1/u/'            # complete user-names
+    complete find       'n/-fstype/(nfs 4.2)/' 'n/-name/f/' \
+                        'n/-type/(c b d f p l s)/' 'n/-user/u/' 'n/-exec/c/' \
+                        'n/-ok/c/' 'n/-cpio/f/' 'n/-ncpio/f/' 'n/-newer/f/' \
+                        'c/-/(fstype name perm prune type user nouser \
+                           group nogroup size inum atime mtime ctime exec \
+                           ok print ls cpio ncpio newer xdev depth)/' \
+                        'n/*/d/'
+
+alias m 'make -j4'
+# alias ls 'ls -al'
+alias learn 'cd /Users/rohanp/code/learning/'
+alias abs 'cd /Users/rohanp/code/development/language-understanding/h2sl_nsf_nri_mvli/'
+alias sym '/Users/rohanp/code/development/symbolic-planning/'
+alias h2sl '/Users/rohanp/code/development/src/h2sl/'
+alias h2sl_rcta '/Users/rohanp/code/development/src/h2sl_rcta/'
+alias cl 'clear'
+# Git related
+alias gitlog 'git log --oneline --decorate --graph --all'
+alias vi 'vim'
+alias we 'open -a /Applications/WriteRoom.app'
+alias te 'open -a /Applications/TextEdit.app'
+alias tes 'te ~/.tcshrc'
+alias things 'open  -a /Applications/Things.app'
+alias tec 'te CMakeLists.txt'
+alias   rb 'ssh rohanp@login2.robots.ox.ac.uk'
+alias le 'open -a /Applications/Tex/TexShop.app'
+alias cpwd ' pwd | pbcopy '
+alias make 'make -j4'
+
+
+alias cp 'cp -i'
+alias dun 'du -sk * | sort -n'
+alias dur 'du -sk * | sort -n -r'
+alias h history
+alias nemacs '\emacs -nw'
+alias smy 'source ~/.tcshrc'
+alias mrg 'cd /Users/rohanpaul/code/development/MRG'
+alias fabmap3D 'cd /Users/rohanpaul/code/development/matlab'
+alias cls 'clear;ls'
+alias data 'cd /Users/rohanpaul/Data/NewCollegeData/DataFiles/ ; pwd'
+alias datax 'cd /Volumes/mrg0/Processed/LisaData/DataFiles/ ; pwd'
+alias dataix 'cd /Volumes/mrg0/Processed/LisaData/FabMap/ ; pwd'
+alias lcode 'cd
+/Users/rohanpaul/code/development/MRG/Devel/LaserToolChain/ ; pwd'
+alias lxcode 'cd /Users/rohanpaul/code/development/MRGXcode/ ; pwd'
+
+alias l 'ls'
+alias sl 'ls'
+
+
+alias vpnreset 'sudo /System/Library/StartupItems/CiscoVPN/CiscoVPN restart'
+alias wiki 'sudo ssh rohanp@login2.robots.ox.ac.uk -N -L 80:xerxes:80'
+alias xerxes 'sudo ssh mrg@login2.robots.ox.ac.uk -N -L 90:xerxes:80'
+alias ssh_xerxes 'sudo ssh rohanp@login2.robots.ox.ac.uk -N -L 100:xerxes:22'
+alias sql_tunnel_xerxes 'sudo ssh  pnewman@login2.robots.ox.ac.uk -N
+-L 3306:xerxes:3306'
+#alias kill_tunnels ' sudo kill `ps -ax | grep "ssh -f" | grep -v
+"grep" | awk \'\{print $1\}\' ` '
+
+alias sql_xerxes ' mysql -u pnewman -h 127.0.0.1 --port=3306 -p '
+
+
+#PROJECT SPECIFIC ALIASES
+
+alias og 'cd /Users/rohanpaul/code/development/OverheadGround/pic/ ; pwd'
+alias lda 'cd /Users/rohanpaul/code/development/MRG/Devel/rohanp/pLDA/ ; pwd'
+alias ldar 'cd /Users/rohanpaul/code/development/MRGBin/ ; pwd'
+alias ldad 'cd /Users/rohanpaul/Data/LDAData/GibbsSampling/ ; pwd'
+
+alias star 'cd /Users/rohanpaul/code/development/MRG/Devel/rohanp/pOnlineStarClustering/
+; pwd'
+alias stard 'cd /Users/rohanpaul/Data/StarClustering/ ; pwd'
+alias starl 'cd /Users/rohanpaul/Data/StarClusteringLaserData/ ; pwd'
+alias mrgbin 'cd /Users/rohanpaul/code/development/MRGBin/; pwd'
+
+
+# Make tcsh more like bash
+bindkey "^I" complete-word-fwd
+bindkey "^R" i-search-back
+
