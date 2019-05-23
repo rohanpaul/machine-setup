@@ -1,0 +1,131 @@
+STEPS FOR BUILDING THE RCTA CODEBASE ON A FRESH VIRTUAL MACHINE (UBUNTU 16.04) AS OF JANUARY 25, 2019
+
+1. Set up personal settings (e.g. install vim, set terminal profile preferences, etc.). I also update and upgrade apt packages.
+
+2. Install cmake 3.5
+
+	to install: sudo apt-get install cmake
+
+	to check version: cmake --version
+		this should say cmake version 3.5.1
+
+3. Install git
+	to install: sudo apt-get install git
+4. Configure git
+	command: git config --global user.name “Rohan Paul”
+	command: git config --global user.email “rohanp@csail.mit.edu”
+	Can follow the instructions on confluence to setup non-default diff and merge tools
+	https://roboticscta.seas.upenn.edu/confluence/display/RKB/Configure+Git
+
+	I also set up the credential helper to store my HTTPS credentials for 15 minutes at a time:
+	command: git config --global credential.helper cache
+
+5. Download and Install the GIT LFS source files from https://git-lfs.github.com/
+	I use the download link “Download v2.5.2 (Linux)” located below the larger “Install v2.5.2 via PackageCloud (Linux)”
+	I place it in a separate “packages” directory for housing
+		command: mkdir -p software/packages/git-lfs
+		command: cd software/packages/git-lfs
+		command: mv ~/Downloads/git-lfs-linux-amd64-v2.4.2.tar.gz .
+	
+	Unpack the tarball
+		command: tar -xzvf git-lfs-linux-amd64-v2.5.2.tar.gz
+
+	Run the install script
+		command: sudo ./install.sh
+		Note: the output should say “Git LFS initialized.”
+
+6. Install version 7.14 of Gazebo
+	It is helpful to do this before running any of the install scripts from the rcta repos.
+	I am following instructions from the “Gazebo Simulation” confluence page and associated comments.
+
+	Set up the computer to accept software from packages.osrfoundation.org
+	command: sudo sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list'
+
+	Set up the apt keys
+	command: wget http://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add -
+
+	Update & Upgrade apt-get
+	command: sudo apt-get update
+	command: sudo apt-get upgrade
+
+	Install gazebo 7.14
+	command: sudo apt-get install gazebo7=7.14.0-1~xenial
+
+	Check that this worked by launching gazebo and looking at the version in “Help->About”
+	command: gazebo
+	
+
+7. Clone the rcta_installers repo using git lfs
+	I create a directory to house different rcta related repos
+
+		command: cd
+		command: cd software
+		command: mkdir rcta_repos
+		command: cd rcta_repos
+
+	Then I clone the rcta_installers repo using https rather than ssh (I’ve found the ssh connection fails sometimes, so I avoid	)
+		Note: As mentioned in Step 4, I set up git to store credentials for a short period of time; this prevents relentless prompts when cloning over https
+
+		command: git lfs clone https://{bitbucket account name}@roboticscta.seas.upenn.edu/bitbucket/scm/rcta/rcta_installers.git
+		command: git lfs clone https://rpaul@roboticscta.seas.upenn.edu/bitbucket/scm/rcta/rcta_installers.git
+
+		Note: replace “{bitbucket account name}” with your account name, e.g. https://rpaul@roboticscta.seas.upenn.edu/bitbucket/scm/rcta/rcta_installers.git
+		Note: You will need to enter you bitbucket username and password. The credential.helper configuration should make that prompt happen only once.
+
+8. Run the first time setup script
+	The master branch of this repo works for Ubuntu 16.04
+	Move into the scripts directory	
+		command: cd rcta_installers/scripts
+
+	Run the first time setup script; this should not be done as sudo - the script may prompt for sudo credentials
+		command: ./first_time_setup.sh
+
+9. Source ros in your .bashrc file
+
+	echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc
+	source ~/.bashrc
+
+10. Clone the rcta repo
+	I usually make a directory to hold different compiled branches
+
+		command: cd ~/software/rcta_repos
+		command: mkdir rcta
+		command: cd rcta
+
+	clone the repo using https and git lfs:
+
+		command: git lfs clone https://{bitbucket account name}@roboticscta.seas.upenn/bitbucket/scm/rcta/rcta.git master
+		Note: replace “{bitbucket account name}” with your bitbucket account name, e.g. git lfs clone https://jarkin@roboticscta.seas.upenn.edu/bitbucket/scm/rcta/rcta.git master
+
+11. Build the master branch
+	command: cd master
+	command: ./build.sh
+
+	Note: I ran into an error where the package shyaml was not installed and thus could not parse some of the catkin configuration files
+	shyaml is a package that can be installed via pip
+	command: pip install shyaml
+
+
+
+CHECKING OUT A DIFFERENT BRANCH
+
+Follow the above steps up-to-and-including step 10, but consider naming the directory something different than “master”
+
+11. Move into the cloned repo, e.g.
+	command: cd ~/software/rcta_repos/rcta/{repo directory}
+
+12. Check the git status
+	I find that a cluster of files have been locally changed and staged, so you should see a bunch of green file names.
+	If there are no changed files, you can probably just checkout the branch you want
+
+13. Reset changed files and checkout their state from the remote
+	You should do this for all of the modified files, but I included the command for the case I see
+	command: git reset HEAD src/drivers/sensors/localization/rrnav/*
+	command: git checkout src/drivers/sensors/localization/rrnav/*
+
+14. Checkout the branch you want
+	command: git checkout {name of branch}
+
+15. Run the build.sh script
+	command: cd {name of repo directory}
+	command: ./build.sh
