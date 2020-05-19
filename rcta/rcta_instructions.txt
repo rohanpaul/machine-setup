@@ -94,7 +94,7 @@ STEPS FOR BUILDING THE RCTA CODEBASE ON A FRESH VIRTUAL MACHINE (UBUNTU 16.04) A
 
 	clone the repo using https and git lfs:
 
-		command: git lfs clone https://{bitbucket account name}@roboticscta.seas.upenn/bitbucket/scm/rcta/rcta.git master
+		command: git lfs clone https://{bitbucket account name}@roboticscta.seas.upenn.edu/bitbucket/scm/rcta/rcta.git master
 		Note: replace “{bitbucket account name}” with your bitbucket account name, e.g. git lfs clone https://jarkin@roboticscta.seas.upenn.edu/bitbucket/scm/rcta/rcta.git master
 
 11. Build the master branch
