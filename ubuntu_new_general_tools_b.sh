@@ -1,26 +1,6 @@
 #!/bin/sh
 # This is a comment!
 
-echo Terminator
-sudo apt-get install terminator
-
-echo HTOP
-sudo apt-get install htop
-
-echo vim
-sudo apt-get install vim
-
-# Install web stuff.
-echo "Installing web stuff..."
-sudo apt-get install -y chromium-browser
-sudo apt-get install -y pepperflashplugin-nonfree # Flash for chromium.
-sudo apt-get install -y flashplugin-installer # Flash for firefox.
-sudo apt-get install -y icedtea-plugin # Java plugin.
-
-# Latex stuff.
-echo "Installing LaTeX stuff..."
-sudo apt-get install -y texlive
-
 # Python stuff.
 echo "Installing Python stuff..."
 sudo apt-get install -y python-pip
@@ -28,7 +8,6 @@ sudo pip install virtualenv
 sudo pip install virtualenvwrapper
 sudo apt-get install -y python-numpy python-scipy python-matplotlib ipython ipython-notebook python-pandas python-sympy python-nose
 sudo pip install pylint cpplint
-
 
 # Other tools.
 echo "Installing misc. tools..."
@@ -59,7 +38,6 @@ sudo apt-get install -y trash-cli
 sudo apt-get install -y git
 sudo apt-get install -y htop
 sudo apt-get install -y silversearcher-ag
-
 
 # Shell stuff.
 sudo apt-get install -y zsh
